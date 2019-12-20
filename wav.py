@@ -34,6 +34,8 @@ def save(filename, headers, samples):
   file.setframerate(framerate)
   file.setnframes(nfarmes)
 
+  samples = np.clip(samples[:nfarmes], -2**(sampwidth*8-1), 2**(sampwidth*8-1)-1)
+
   structFormat = "<{0}{1}".format(nfarmes, widthStruct[sampwidth])
   frames = struct.pack(structFormat, *samples)
   file.writeframes(frames)
